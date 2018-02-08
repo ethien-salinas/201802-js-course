@@ -1,15 +1,14 @@
-const http = require('http');
+const express = require('express')
+const app = express()
+const db = require('../db/movies.json')
 
-const hostname = '127.0.0.1';
-const port = 3000;
+// respond with "hello world" when a GET request is made to the homepage
+app.get('/', function (req, res) {
+  res.send('hello world')
+})
 
+app.get('/db', function (req, res) {
+  res.send(db)
+})
 
-const server = http.createServer((req, res) => {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
-    res.end('Hello World\n');
-});
-
-server.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}:${port}/`);
-});
+app.listen(3000, () => console.log('Example app listening on port 3000!'))
