@@ -18,7 +18,9 @@ describe('get values suite', () => {
 
   // count elements
   it('should count nodes in movies.json', ()=>{
-    expect(db_functions.getSize()).toBe(85)
+    db_functions.getSize().then((result)=>{
+      expect(result).toBe(85)
+    })
   })
 })
 

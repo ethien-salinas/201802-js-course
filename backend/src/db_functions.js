@@ -7,7 +7,9 @@ module.exports = {
   },
 
   getSize: ()=>{
-    return Object.keys(movies).length
+    return new Promise((resolve, reject)=>{
+      resolve(Object.keys(movies).length)
+    })
   }
 
 }
