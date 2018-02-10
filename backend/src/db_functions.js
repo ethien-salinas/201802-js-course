@@ -4,6 +4,10 @@ module.exports = {
 
   readAnElementById: (id) => {
     return movies[id]
+  },
+
+  getSize: ()=>{
+    return Object.keys(movies).length
   }
 
 }

@@ -1,6 +1,5 @@
 import db_functions  from '../db_functions'
 
-
 const obj2012 = {
   "title": "Argo",
   "imdbId": "tt1024648",
@@ -12,7 +11,14 @@ const obj2012 = {
 }
 
 describe('get values suite', () => {
+  // get element by it
   it('should read an element', () => {
     expect(db_functions.readAnElementById("2012")).toEqual(obj2012);
   })
+
+  // count elements
+  it('should count nodes in movies.json', ()=>{
+    expect(db_functions.getSize()).toBe(85)
+  })
 })
+
