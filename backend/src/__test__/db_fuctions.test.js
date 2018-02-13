@@ -1,4 +1,4 @@
-import db_functions  from '../db_functions'
+import db_functions from '../db_functions'
 
 const obj2012 = {
   "title": "Argo",
@@ -17,10 +17,11 @@ describe('get values suite', () => {
   })
 
   // count elements
-  it('should count nodes in movies.json', ()=>{
-    db_functions.getSize().then((result)=>{
+  it('should count nodes in movies.json', () => {
+    return db_functions.getSize().then((result) => {
       expect(result).toBe(85)
     })
   })
+
 })
 
