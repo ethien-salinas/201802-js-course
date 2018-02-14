@@ -11,7 +11,8 @@ const obj2012 = {
 }
 
 describe('get values suite', () => {
-  // get element by it
+
+  // get element by id
   it('should read an element', () => {
     expect(db_functions.readAnElementById("2012")).toEqual(obj2012);
   })
@@ -22,6 +23,13 @@ describe('get values suite', () => {
       expect(result).toBe(85)
     })
   })
+
+  // range from ... to ...
+  it('should get 10 elements (length)')
+
+  it('should get 3 elements (values) from their keys')
+
+  it('should get 3 elements (values) from their index')
 
 })
 
