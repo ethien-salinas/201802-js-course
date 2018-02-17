@@ -6,7 +6,7 @@ module.exports = {
     return movies
   },
 
-  readAnElementById: (id) => {
+  getElementById: (id) => {
     return movies[id]
   },
 

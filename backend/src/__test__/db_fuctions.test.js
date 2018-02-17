@@ -14,7 +14,7 @@ describe('get values suite', () => {
 
   // get element by id
   it('should read an element', () => {
-    expect(db_functions.readAnElementById("2012")).toEqual(obj2012);
+    expect(db_functions.getElementById("2012")).toEqual(obj2012);
   })
 
   // count elements
