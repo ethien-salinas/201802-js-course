@@ -1,14 +1,15 @@
 const express = require('express')
 const app = express()
 const db = require('../db/movies.json')
+const dbFunctions = require('./db_functions')
+const PORT = 4000
 
-// respond with "hello world" when a GET request is made to the homepage
 app.get('/', function (req, res) {
-  res.send('hello world')
+  res.send('Hello World!')
 })
 
-app.get('/db', function (req, res) {
-  res.send(db)
+app.get('/movies', function (req, res) {
+  res.send(dbFunctions.getAll())
 })
 
-app.listen(3000, () => console.log('Example app listening on port 3000!'))
+app.listen(PORT, () => console.log(`App listening on port ${PORT}!`))
