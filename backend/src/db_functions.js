@@ -16,4 +16,10 @@ module.exports = {
     })
   },
 
+  getKeysFromTo: (start, end) => {
+    return new Promise((resolve, reject)=>{
+      resolve(Object.keys(movies).slice(start, end))
+    })
+  }
+
 }
