@@ -17,8 +17,18 @@ module.exports = {
   },
 
   getKeysFromTo: (start, end) => {
-    return new Promise((resolve, reject)=>{
+    return new Promise((resolve, reject) => {
       resolve(Object.keys(movies).slice(start, end))
+    })
+  },
+
+  getValuesFromKeys: (...keys) => {
+    return new Promise((resolve, reject) => {
+      let arr = [];
+      keys.forEach((item) => {
+        arr.push(movies[item])
+      })
+      resolve(arr)
     })
   }
 
