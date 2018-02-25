@@ -24,11 +24,7 @@ module.exports = {
 
   getValuesFromKeys: (...keys) => {
     return new Promise((resolve, reject) => {
-      let arr = [];
-      keys.forEach((item) => {
-        arr.push(movies[item])
-      })
-      resolve(arr)
+      resolve(keys.map(key => movies[key]))
     })
   }
 
