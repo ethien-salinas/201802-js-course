@@ -26,6 +26,11 @@ module.exports = {
     return new Promise((resolve, reject) => {
       resolve(keys.map(key => movies[key]))
     })
+  },
+
+  getElementsFromTo: async function (start, end) {
+    const keys = await this.getKeysFromTo(start, end)
+    return await this.getValuesFromKeys(...keys)
   }
 
 }

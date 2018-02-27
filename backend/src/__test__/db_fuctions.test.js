@@ -10,7 +10,7 @@ const obj2012 = {
   "releaseDay": 4
 }
 
-const valuesFrom1933to1935 =[
+const valuesFrom1933to1935 = [
   {
     "title": "Cavalcade",
     "imdbId": "tt0023876",
@@ -58,29 +58,33 @@ describe('get values suite', () => {
   // range from ... to ...
   it('should get 5 elements (length)', () => {
     return db_functions.getKeysFromTo(5, 10)
-    .then(result => {
-      expect(result.length).toBe(5)
-    })
+      .then(result => {
+        expect(result.length).toBe(5)
+      })
   })
 
-  it('should get 5 elements (keys)', ()=>{
+  it('should get 5 elements (keys)', () => {
     const arrFrom1927To1932 = ['1927', '1929', '1930', '1931', '1932']
-    return db_functions.getKeysFromTo(0,5)
-    .then( result =>{
-      expect(result).toEqual(arrFrom1927To1932)
-    }
+    return db_functions.getKeysFromTo(0, 5)
+      .then(result => {
+        expect(result).toEqual(arrFrom1927To1932)
+      }
 
-    )
+      )
   })
 
-  it('should get 5 elements (values) from their keys', ()=>{
+  it('should get 3 elements (values) from their keys', () => {
     return db_functions.getValuesFromKeys('1933', '1934', '1935')
-    .then(result=>{
-      expect(result).toEqual(valuesFrom1933to1935)
-    })
+      .then(result => {
+        expect(result).toEqual(valuesFrom1933to1935)
+      })
   })
 
-  it('should get 3 elements (values) from their index')
+  it('should get 3 elements (values) from their index', () => {
+    return db_functions.getElementsFromTo(5, 8)
+      .then(result => {
+        expect(result).toEqual(valuesFrom1933to1935)
+      })
+  })
 
 })
-
