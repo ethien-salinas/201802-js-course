@@ -8,8 +8,17 @@ router.use(function timeLog (req, res, next) {
   next()
 })
 
-router.get('/', (req, res) => {
-  res.send(dbFunctions.getAll())
+router.get('/', async (req, res) => {
+  //const offset = req.query.page_offset || 0
+  //const limit = req.query.page_limit || 5
+  if(req.query.page_offset && req.query.page_limit){
+    res.send(await dbFunctions.getElementsFromTo(
+      req.query.page_offset,
+      req.query.page_limit
+    ))  
+  }else{
+    res.send(dbFunctions.getAll())
+  }
 })
 
 router.get('/:movieId', (req, res) => {

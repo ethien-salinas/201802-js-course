@@ -1,4 +1,5 @@
-import db_functions from '../db_functions'
+import dbFunctions from '../db_functions'
+import movies from '../../db/movies.json'
 
 const obj2012 = {
   "title": "Argo",
@@ -44,12 +45,12 @@ describe('get values suite', () => {
 
   // get element by id
   it('should read an element', () => {
-    expect(db_functions.getElementById("2012")).toEqual(obj2012);
+    expect(dbFunctions.getElementById("2012")).toEqual(obj2012);
   })
 
   // count elements
   it('should count nodes in movies.json', () => {
-    return db_functions.getSize()
+    return dbFunctions.getSize()
       .then(result => {
         expect(result).toBe(85)
       })
@@ -57,7 +58,7 @@ describe('get values suite', () => {
 
   // range from ... to ...
   it('should get 5 elements (length)', () => {
-    return db_functions.getKeysFromTo(5, 10)
+    return dbFunctions.getKeysFromTo(5, 10)
       .then(result => {
         expect(result.length).toBe(5)
       })
@@ -65,7 +66,7 @@ describe('get values suite', () => {
 
   it('should get 5 elements (keys)', () => {
     const arrFrom1927To1932 = ['1927', '1929', '1930', '1931', '1932']
-    return db_functions.getKeysFromTo(0, 5)
+    return dbFunctions.getKeysFromTo(0, 5)
       .then(result => {
         expect(result).toEqual(arrFrom1927To1932)
       }
@@ -74,17 +75,50 @@ describe('get values suite', () => {
   })
 
   it('should get 3 elements (values) from their keys', () => {
-    return db_functions.getValuesFromKeys('1933', '1934', '1935')
+    return dbFunctions.getValuesFromKeys('1933', '1934', '1935')
       .then(result => {
         expect(result).toEqual(valuesFrom1933to1935)
       })
   })
 
   it('should get 3 elements (values) from their index', () => {
-    return db_functions.getElementsFromTo(5, 8)
+    return dbFunctions.getElementsFromTo(5, 8)
       .then(result => {
         expect(result).toEqual(valuesFrom1933to1935)
       })
   })
+
+})
+
+
+describe('pagination suite', () => {
+
+  it('should get first 10 elements', () => {
+    return dbFunctions.getElementsFromTo(0, 10)
+    .then(result => {
+      expect(result).toEqual(
+        expect.arrayContaining([
+          '1927', '1929', '1930', '1931', '1932',
+          '1933', '1934', '1935', '1936', '1937'
+        ].map(key => movies[key]))
+      )
+    })
+  })
+
+  it('should get next 10 elements', () => {
+    return dbFunctions.getElementsFromTo(10, 20)
+    .then(result => {
+      expect(result).toEqual(
+        expect.arrayContaining([
+          '1938', '1939', '1940', '1941', '1942',
+          '1943', '1944', '1945', '1946', '1947'
+        ].map(key => movies[key]))
+      )
+    })
+  })
+
+  it('should get prev 10 elements')
+
+  it('should get last 10 elements')
 
 })
