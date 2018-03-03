@@ -1,6 +1,9 @@
 const express = require('express')
 const app = express()
 const dbFunctions = require('./db_functions')
+const index = require('./routes/index')
+const movies = require('./routes/movies')
+
 const PORT = 4000
 
 app.use((req, res, next) => {
@@ -9,16 +12,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+app.use('/', index)
+app.use('/movies', movies)
 
-app.get('/movies', (req, res) => {
-  res.send(dbFunctions.getAll())
-})
-
-app.get('/movies/:movieId', (req, res) => {
-  res.send(dbFunctions.getElementById(req.params.movieId))
-})
 
 app.listen(PORT, () => console.log(`App listening on port ${PORT}!`))
