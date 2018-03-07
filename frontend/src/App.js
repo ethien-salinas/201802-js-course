@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import 'bulma/css/bulma.css'
-import Header from './component/Header'
+import Header from './components/Header'
+import Table from './components/Table'
 
 class App extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      movies: {}
+      movies: [],
+      title: 'Title from App'
     }
   }
 
@@ -17,7 +19,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:4000/movies')
+    fetch('http://localhost:4000/movies?page_offset=3&page_limit=6')
       .then(response => response.json())
       .then(data => {
         this.setState({ movies: data })
@@ -33,7 +35,10 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
         <p>Edited!!!</p>
-        <p>{JSON.stringify(this.state.movies)}</p>
+        <p>{
+          //JSON.stringify(this.state.movies)
+          }</p>
+        <Table elements={this.state.movies} />
       </div>
     );
   }
