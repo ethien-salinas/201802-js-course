@@ -7,7 +7,7 @@ class Header extends Component {
       <section className="hero is-dark">
         <div className="hero-body">
           <div className="container">
-            <figure class="image is-128x128">
+            <figure className="image is-128x128">
               <img src={logo} className="App-logo" alt="logo" />
             </figure>
             <h1 className="title">React App</h1>

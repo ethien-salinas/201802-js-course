@@ -25,9 +25,13 @@ class Table extends Component {
             {this.props.elements.map(element => {
               return (
                 <tr>
+                  <td>{element.title}</td>
                   <td>{element.imdbId}</td>
                   <td>{element.releaseDate}</td>
-                  <td>{element.releaseCountry}</td> 
+                  <td>{element.releaseCountry}</td>
+                  <td>{element.releaseYear}</td>
+                  <td>{element.releaseMonth}</td>
+                  <td>{element.releaseDay}</td>
                 </tr>
               )
             })}

@@ -90,35 +90,54 @@ describe('get values suite', () => {
 
 })
 
-
 describe('pagination suite', () => {
 
+  const OFFSET = 0;
+  const LIMIT = 10;
+
   it('should get first 10 elements', () => {
-    return dbFunctions.getElementsFromTo(0, 10)
-    .then(result => {
-      expect(result).toEqual(
-        expect.arrayContaining([
-          '1927', '1929', '1930', '1931', '1932',
-          '1933', '1934', '1935', '1936', '1937'
-        ].map(key => movies[key]))
-      )
-    })
+    return dbFunctions.getElementsFromTo(OFFSET, LIMIT)
+      .then(result => {
+        expect(result).toEqual(
+          expect.arrayContaining([
+            '1927', '1929', '1930', '1931', '1932',
+            '1933', '1934', '1935', '1936', '1937'
+          ].map(key => movies[key]))
+        )
+      })
   })
 
   it('should get next 10 elements', () => {
-    return dbFunctions.getElementsFromTo(10, 20)
-    .then(result => {
-      expect(result).toEqual(
-        expect.arrayContaining([
-          '1938', '1939', '1940', '1941', '1942',
-          '1943', '1944', '1945', '1946', '1947'
-        ].map(key => movies[key]))
-      )
-    })
+    return dbFunctions.getElementsFromTo(OFFSET + LIMIT, LIMIT + LIMIT)
+      .then(result => {
+        expect(result).toEqual(
+          expect.arrayContaining([
+            '1938', '1939', '1940', '1941', '1942',
+            '1943', '1944', '1945', '1946', '1947'
+          ].map(key => movies[key]))
+        )
+      })
   })
 
-  it('should get prev 10 elements')
+  it('should get prev 10 elements', () => {
+    return dbFunctions.getElementsFromTo(OFFSET - LIMIT, LIMIT - LIMIT)
+      .then(result => {
+        expect(result).toEqual(
+          // this should be an empty array
+          expect.arrayContaining([].map(key => movies[key]))
+        )
+      })
+  })
 
-  it('should get last 10 elements')
+  it('should get last 10 elements', async () => {
+    const LAST_OFFSET = Math.floor(await dbFunctions.getSize() / LIMIT) * LIMIT
+    const LAST_LIMIT = LAST_OFFSET + LIMIT
+    const result = await dbFunctions.getElementsFromTo(LAST_OFFSET, LAST_LIMIT)
+    expect(result).toEqual(
+      expect.arrayContaining([
+        '2008', '2009', '2010', '2011', '2012'
+      ].map(key => movies[key]))
+    )
+  })
 
 })
