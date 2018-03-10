@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import 'bulma/css/bulma.css'
 import Header from './components/Header'
 import Table from './components/Table'
+import TablePaginator from './components/TablePaginator'
 
 class App extends Component {
 
@@ -46,19 +47,15 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-        <Table elements={this.state.movies} />
-        <nav className="pagination is-centered" aria-label="pagination">
-          <ul className="pagination-list">
-            <li><a className="pagination-link" aria-label="Goto first page" onClick={this.handleNavigationClick('first')}>&laquo;</a></li>
-            {this.state.links.prev !== '' &&
-              <li><a className="pagination-link" aria-label="Goto prev page" onClick={this.handleNavigationClick('prev')}>&lsaquo;</a></li>
-            }
-            {this.state.links.next !== '' &&
-              <li><a className="pagination-link" aria-label="Goto next page" onClick={this.handleNavigationClick('next')}>&rsaquo;</a></li>
-            }
-            <li><a className="pagination-link" aria-label="Goto last page" onClick={this.handleNavigationClick('last')}>&raquo;</a></li>
-          </ul>
-        </nav>
+        <section className="section">
+          <div className="container">
+            <h1 class="title">Movies</h1>
+            <Table elements={this.state.movies} />
+            <TablePaginator
+              handleNavigationClick={this.handleNavigationClick}
+              links={this.state.links} />
+          </div>
+        </section>
       </div>
     );
   }
