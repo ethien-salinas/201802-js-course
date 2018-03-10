@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import 'bulma/css/bulma.css'
 import Header from './components/Header'
 import Table from './components/Table'
+import TablePaginator from './components/TablePaginator'
 
 class App extends Component {
 
@@ -9,8 +10,20 @@ class App extends Component {
     super(props);
     this.state = {
       movies: [],
-      title: 'Title from App'
+      links: []
     }
+    this.handleNavigationClick = this.handleNavigationClick.bind(this);
+  }
+
+  getElementsAndUpdate(url) {
+    fetch(url)
+      .then(response => response.json())
+      .then(response => {
+        this.setState({
+          movies: response.data,
+          links: response.links
+        })
+      })
   }
 
   componentWillMount() {
@@ -19,11 +32,14 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:4000/movies?page_offset=3&page_limit=6')
-      .then(response => response.json())
-      .then(data => {
-        this.setState({ movies: data })
-      })
+    const url = 'http://localhost:4000/movies/paginator'
+    this.getElementsAndUpdate(url)
+  }
+
+  handleNavigationClick = param => e => {
+    e.preventDefault();
+    const url = `${this.state.links[param]}`
+    this.getElementsAndUpdate(url)
   }
 
 
@@ -31,14 +47,15 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <p>Edited!!!</p>
-        <p>{
-          //JSON.stringify(this.state.movies)
-          }</p>
-        <Table elements={this.state.movies} />
+        <section className="section">
+          <div className="container">
+            <h1 class="title">Movies</h1>
+            <Table elements={this.state.movies} />
+            <TablePaginator
+              handleNavigationClick={this.handleNavigationClick}
+              links={this.state.links} />
+          </div>
+        </section>
       </div>
     );
   }
