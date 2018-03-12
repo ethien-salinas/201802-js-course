@@ -32,8 +32,8 @@ router.get('/paginator', async (req, res) => {
   response.links = {
     first: `${fullURL}/movies/paginator?page_offset=${0}&page_limit=${pagination_length}`,
     last: `${fullURL}/movies/paginator?page_offset=${last_offset}&page_limit=${last_limit}`,
-    prev: (offset - pagination_length) < 0 || limit <= 0 ? '' : `${fullURL}/movies/paginator?page_offset=${offset - pagination_length}&page_limit=${offset}`,
-    next: limit > db_size ? '' : `${fullURL}/movies/paginator?page_offset=${limit}&page_limit=${(limit + pagination_length)}`
+    prev: (offset - pagination_length) < 0 || limit <= 0 ? null : `${fullURL}/movies/paginator?page_offset=${offset - pagination_length}&page_limit=${offset}`,
+    next: limit > db_size ? null : `${fullURL}/movies/paginator?page_offset=${limit}&page_limit=${(limit + pagination_length)}`
   }
   response.data = await dbFunctions.getElementsFromTo(offset, limit)
   res.send(response)
