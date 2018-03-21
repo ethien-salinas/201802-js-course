@@ -1,11 +1,11 @@
 const express = require('express')
 const router = express.Router()
 const dbFunctions = require('../db_functions')
-var app = require('express')();
+let moment = require('moment-timezone')
 
 // middleware that is specific to this router
 router.use(function timeLog(req, res, next) {
-  console.log('[movies] Time: ', Date.now())
+  console.log('[movies] Time: ', moment().tz('America/Mexico_City').format())
   next()
 })
 
