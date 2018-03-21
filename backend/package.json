@@ -12,7 +12,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "moment-timezone": "^0.5.14"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
