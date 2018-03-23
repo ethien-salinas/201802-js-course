@@ -23,19 +23,17 @@ router.get('/', async (req, res) => {
 router.get('/paginator', async (req, res) => {
   const offset = parseInt(req.query.page_offset, 10) || 0
   const limit = parseInt(req.query.page_limit, 10) || 10
-  const pagination_length = limit - offset
   const db_size = await dbFunctions.getSize()
-  const last_offset = Math.floor(db_size / pagination_length) * pagination_length
-  const last_limit = last_offset + pagination_length
+  const last_offset = Math.floor(db_size / limit) * limit
   const fullURL = req.protocol + '://' + req.get('host');
   let response = {}
   response.links = {
-    first: `${fullURL}/movies/paginator?page_offset=${0}&page_limit=${pagination_length}`,
-    last: `${fullURL}/movies/paginator?page_offset=${last_offset}&page_limit=${last_limit}`,
-    prev: (offset - pagination_length) < 0 || limit <= 0 ? null : `${fullURL}/movies/paginator?page_offset=${offset - pagination_length}&page_limit=${offset}`,
-    next: limit > db_size ? null : `${fullURL}/movies/paginator?page_offset=${limit}&page_limit=${(limit + pagination_length)}`
+    first: `${fullURL}/movies/paginator?page_offset=${0}&page_limit=${limit}`,
+    last: `${fullURL}/movies/paginator?page_offset=${last_offset}&page_limit=${limit}`,
+    prev: (offset - limit) < 0 ? null : `${fullURL}/movies/paginator?page_offset=${offset - limit}&page_limit=${limit}`,
+    next: (offset + limit) > db_size ? null : `${fullURL}/movies/paginator?page_offset=${offset + limit}&page_limit=${limit}`
   }
-  response.data = await dbFunctions.getElementsFromTo(offset, limit)
+  response.data = await dbFunctions.getElementsFromTo(offset, offset + limit)
   res.send(response)
 })
 
