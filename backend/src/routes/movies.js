@@ -5,7 +5,7 @@ let moment = require('moment-timezone')
 
 // middleware that is specific to this router
 router.use(function timeLog(req, res, next) {
-  console.log('[movies] Time: ', moment().tz('America/Mexico_City').format())
+  console.log(`[movies] Time: ${moment().tz('America/Mexico_City').format()}`)
   next()
 })
 
